@@ -22,7 +22,8 @@ if vim.loop.fs_stat(backup_dir) ~= nil then
   print(
     'MiniMax backup directory is already present: '
       .. backup_dir
-      .. '\nManage it first (go through it; preserve what is needed; delete it),'
+      .. '\nManage it first'
+      .. '(go through it; preserve what is needed; delete it),'
       .. 'before attempting another installation\n'
   )
   return
@@ -87,3 +88,5 @@ if vim.loop.fs_stat(config_dir .. '/.git') == nil then
 end
 
 print('Set up MiniMax config at ' .. config_dir)
+
+-- vim: et sts=2 sw=2 ts=2
