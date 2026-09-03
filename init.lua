@@ -8,17 +8,21 @@
 -- Its structure:
 --
 -- .
--- ├── init.lua            Initial (this) file executed during startup.
--- ├── after/              Files to override behavior added by plugins.
--- │   ├── ftplugin/       Files for filetype behavior (has demo file).
--- │   ├── lsp/            Language server configurations (has demo file).
--- │   └── snippets/       Higher priority snippet files (has demo file).
--- ├── plugin/             Files automatically sourced during startup.
--- │   ├── 10_options.lua  Built-in Neovim behavior.
--- │   ├── 20_keymaps.lua  Custom mappings.
--- │   ├── 30_mini.lua     MINI configurations.
--- │   └── 40_plugins.lua  Plugins outside of MINI.
--- └── snippets/           User-defined snippets (has demo file).
+-- ├── after/                       Files to override behavior added by plugins.
+-- │   ├── ftplugin/                Files for filetype behavior (has demo file).
+-- │   ├── lsp/                     Language server configurations (has demo file).
+-- │   └── snippets/                Higher priority snippet files (has demo file).
+-- ├── lua/                         Files not automatically sourced during startup.
+-- │   └── custom/                  Custom data files.
+-- ├── plugin/                      Files automatically sourced during startup.
+-- │   ├── 01-minimax/              MiniMax configurations.
+-- │   │   ├── 01-options.lua       Built-in Neovim behavior (Part I: Options).
+-- │   │   ├── 02-autocommands.lua  Built-in Neovim behavior (Part II: Autocommands).
+-- │   │   ├── 03-keymaps.lua       Custom mappings.
+-- │   │   └── 04-mini.lua          MINI configurations.
+-- │   └── 02-custom/               Custom configurations.
+-- ├── snippets/                    User-defined snippets (has demo file).
+-- └── init.lua                     Initial (this) file executed during startup.
 --
 -- Config files are meant to be read, preferably inside a Neovim instance
 -- running this config and opened at its root.

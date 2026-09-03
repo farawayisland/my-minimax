@@ -1,0 +1,55 @@
+-- ┌───────────┐
+-- │ Mini.Pick │
+-- └───────────┘
+--
+-- This file contains installation and configuration of the Neovim plugin
+--
+-- https://nvim-mini.org/mini.nvim/readmes/mini-pick
+--
+-- Description:
+-- Pick anything.
+-- Part of `mini.nvim` library.
+
+-- Make concise helper for installing/adding plugins in two stages.
+local later = Config.later
+
+-- Pick anything with single window layout and fast matching.
+-- This is one of the main usability improvements as it powers a lot of "find
+-- things quickly"
+-- workflows.
+-- How to use a picker:
+-- - Start picker, usually with `:Pick <picker-name>` command.
+--   Like `:Pick files`.
+--   It shows a single window in the bottom left corner filled with possible items
+--   to choose from.
+--   Current item has special full line highlighting.
+--   At the top there is a current query used to filter+sort items.
+-- - Type characters (appear at top) to narrow down items.
+--   There is fuzzy matching:
+--   characters may not match one-by-one, but they should be in correct order.
+-- - Navigate down/up with `<C-n>`/`<C-p>`.
+-- - Press `<Tab>` to show item's preview.
+--   `<Tab>` again goes back to items.
+-- - Press `<S-Tab>` to show picker's info.
+--   `<S-Tab>` again goes back to items.
+-- - Press `<CR>` to choose an item.
+--   The exact action depends on the picker: `files`
+--   picker opens a selected file, `help` picker opens help page on selected tag.
+--   To close picker without choosing an item, press `<Esc>`.
+--
+-- Example usage:
+-- - `<Leader>ff` - *f*ind *f*iles; for best performance requires `ripgrep`
+-- - `<Leader>fg` - *f*ind inside files (a.k.a. "to *g*rep"); requires `ripgrep`
+-- - `<Leader>fh` - *f*ind *h*elp tag
+-- - `<Leader>fr` - *r*esume latest picker
+-- - `:h vim.ui.select()` - implemented with `mini.pick`
+--
+-- See also:
+-- - `:h MiniPick-overview` - overview of picker functionality
+-- - `:h MiniPick-examples` - examples of common setups
+-- - `:h MiniPick.builtin` and `:h MiniExtra.pickers` - available pickers;
+--   Execute one either with Lua function, `:Pick <picker-name>` command, or
+--   one of `<Leader>f` mappings defined in `plugin/20_keymaps.lua`
+later(function() require('mini.pick').setup() end)
+
+-- vim: et sts=2 sw=2 ts=2

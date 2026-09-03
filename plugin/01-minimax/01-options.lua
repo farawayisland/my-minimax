@@ -1,8 +1,8 @@
--- ┌──────────────────────────┐
--- │ Built-in Neovim behavior │
--- └──────────────────────────┘
+-- ┌────────────────────────────────────────────┐
+-- │ Built-in Neovim behavior (Part I: Options) │
+-- └────────────────────────────────────────────┘
 --
--- This file defines Neovim's built-in behavior.
+-- This file defines Neovim's built-in options.
 -- The goal is to improve overall usability in a way that works best with MINI.
 --
 -- Here `vim.o.<opt> = value` sets default value of option `<opt>` to `value`.
@@ -19,7 +19,6 @@
 -- The next part (until `-- stylua: ignore end`) is aligned manually for easier
 -- reading.
 -- Consider preserving this or remove `-- stylua` lines to autoformat.
-
 -- ─────────────────────────────────────────────────────────────────────────────
 -- General
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -97,16 +96,6 @@ vim.o.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
 vim.o.complete        = '.,w,b,kspell'                  -- Use less sources
 vim.o.completeopt     = 'menuone,noselect,fuzzy,nosort' -- Use custom behavior
 vim.o.completetimeout = 100                             -- Limit sources delay
--- ─────────────────────────────────────────────────────────────────────────────
--- Autocommands
--- ─────────────────────────────────────────────────────────────────────────────
--- Don't auto-wrap comments and don't insert comment leader after hitting `o`.
--- Do on `FileType` to always override these changes from filetype plugins.
-local f = function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end
-Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
-
--- There are other autocommands created by `mini.basics`.
--- See `plugin/30_mini.lua`.
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Diagnostics
 -- ─────────────────────────────────────────────────────────────────────────────
