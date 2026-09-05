@@ -42,10 +42,12 @@ now_if_args(function()
   -- Use `:h vim.lsp.config()` or `after/lsp/` directory to configure servers.
   -- Uncomment and tweak the following `vim.lsp.enable()` call to enable
   -- servers.
-  -- vim.lsp.enable({
-  --   -- For example, if `lua-language-server` is installed, use `'lua_ls'`
-  --   -- entry.
-  -- })
+
+  local language_servers = require('custom.external-packages.language-servers')
+  for name, config in pairs(language_servers) do
+    vim.lsp.config(name, config)
+    vim.lsp.enable(name)
+  end
 end)
 
 -- vim: et sts=2 sw=2 ts=2
