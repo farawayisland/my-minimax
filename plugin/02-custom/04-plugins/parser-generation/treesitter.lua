@@ -53,31 +53,37 @@ now_if_args(function()
     gh('nvim-treesitter/nvim-treesitter-textobjects'),
   })
 
-  -- Define languages which will have parsers installed and auto enabled.
-  -- After changing this, restart Neovim once to install necessary parsers.
-  -- Wait for the installation to finish before opening a file for added.
-  -- language(s).
-  local languages = {
-    -- These are already pre-installed with Neovim.
-    -- Used as an example.
-    'lua',
-    'vimdoc',
-    'markdown',
-    -- Add here more languages with which you want to use tree-sitter.
-    -- To see available languages:
-    -- - Execute `:=require('nvim-treesitter').get_available()`.
-    -- - Visit `SUPPORTED_LANGUAGES.md` file at
-    --   https://github.com/nvim-treesitter/nvim-treesitter/blob/main
-  }
+  local treesitter_parsers =
+    require('custom.external-packages.treesitter-parsers')
   local isnt_installed = function(lang)
     return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
   end
-  local to_install = vim.tbl_filter(isnt_installed, languages)
+  local to_install = vim.tbl_filter(isnt_installed, treesitter_parsers)
   if #to_install > 0 then require('nvim-treesitter').install(to_install) end
+
+  -- Zsh-specific configuration.
+  -- Source:
+  -- https://github.com/georgeharker/tree-sitter-zsh#installation
+  local ts_install_zsh = function()
+    require('nvim-treesitter.parsers').zsh = {
+      install_info = {
+        'https://github.com/georgeharker/tree-sitter-zsh',
+        generate_from_json = false,
+        queries = 'nvim-queries',
+      },
+      tier = 3,
+    }
+  end
+  Config.new_autocmd(
+    'User',
+    'TSUpdate',
+    ts_install_zsh,
+    'Install tree-sitter parser for Zsh'
+  )
 
   -- Enable tree-sitter after opening a file for a target language.
   local filetypes = {}
-  for _, lang in ipairs(languages) do
+  for _, lang in ipairs(treesitter_parsers) do
     for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
       table.insert(filetypes, ft)
     end
